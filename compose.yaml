@@ -1,0 +1,74 @@
+services:
+  backend:
+    build:
+      args:
+      - NODE_ENV=development
+      context: backend
+      #target: development
+    command: npm run dev
+    environment:
+      - DB_NAME=mydatabase
+      - DB_USER=myuser
+      - DB_HOST=db
+      - NODE_ENV=development
+    ports:
+      - 80:80
+      - 5001:5001
+    secrets:
+      - db-password
+    volumes:
+      - ./backend/src:/code/src:ro
+      - ./backend/package.json:/code/package.json
+      - ./backend/package-lock.json:/code/package-lock.json
+      - back-notused:/opt/app/node_modules
+    networks:
+      - public
+      - private
+    depends_on:
+      db:
+        condition: service_healthy
+  db:
+    container_name: postgresql
+    image: postgres:latest
+    ports:
+      - "5432:5432"
+    restart: always
+    secrets:
+      - db-password
+    volumes:
+      - ./backend/src/config/init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+      - ./backend/src/config/seed.sql:/docker-entrypoint-initdb.d/seed.sql:ro
+      - db-data:/var/lib/postgresql
+    networks:
+      - private
+    environment:
+      - POSTGRES_DB=mydatabase
+      - POSTGRES_USER=myuser
+      - POSTGRES_PASSWORD_FILE=/run/secrets/db-password
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U myuser -d mydatabase"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+  # frontend:
+  #   build:
+  #     context: frontend
+  #     target: development
+  #   ports:
+  #     - 3000:3000
+  #   volumes:
+  #     - ./frontend/src:/code/src
+  #     - /code/node_modules
+  #   networks:
+  #     - public
+  #   depends_on:
+  #     - server
+networks:
+  public:
+  private:
+volumes:
+  back-notused:
+  db-data:
+secrets:
+  db-password:
+    file: ./db/password.txt

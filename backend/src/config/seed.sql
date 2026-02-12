@@ -1,0 +1,111 @@
+-- =====================================
+-- RESET
+-- =====================================
+TRUNCATE match_results,
+         event_participations,
+         matches,
+         events,
+         games,
+         players,
+         admins
+RESTART IDENTITY CASCADE;
+
+
+-- =====================================
+-- ADMINS
+-- password = 123456
+-- =====================================
+INSERT INTO admins (email, password_hash, name) VALUES
+('admin1@boardgames.com',
+ '$argon2id$v=19$m=65536,t=3,p=1$uW1xQW5kU2VlZEZvclRGRw$H6sJz7v1lXw5H8qW0xN5y0zZ4y3p8VQkM3x1pZ8KxY0',
+ 'Admin One'),
+
+('admin2@boardgames.com',
+ '$argon2id$v=19$m=65536,t=3,p=1$uW1xQW5kU2VlZEZvclRGRw$H6sJz7v1lXw5H8qW0xN5y0zZ4y3p8VQkM3x1pZ8KxY0',
+ 'Admin Two');
+
+
+-- =====================================
+-- PLAYERS
+-- password = 123456
+-- =====================================
+INSERT INTO players (email, password_hash, name) VALUES
+('alice@test.com',
+ '$argon2id$v=19$m=65536,t=3,p=1$uW1xQW5kU2VlZEZvclRGRw$H6sJz7v1lXw5H8qW0xN5y0zZ4y3p8VQkM3x1pZ8KxY0',
+ 'Alice'),
+
+('bob@test.com',
+ '$argon2id$v=19$m=65536,t=3,p=1$uW1xQW5kU2VlZEZvclRGRw$H6sJz7v1lXw5H8qW0xN5y0zZ4y3p8VQkM3x1pZ8KxY0',
+ 'Bob'),
+
+('charlie@test.com',
+ '$argon2id$v=19$m=65536,t=3,p=1$uW1xQW5kU2VlZEZvclRGRw$H6sJz7v1lXw5H8qW0xN5y0zZ4y3p8VQkM3x1pZ8KxY0',
+ 'Charlie'),
+
+('diana@test.com',
+ '$argon2id$v=19$m=65536,t=3,p=1$uW1xQW5kU2VlZEZvclRGRw$H6sJz7v1lXw5H8qW0xN5y0zZ4y3p8VQkM3x1pZ8KxY0',
+ 'Diana');
+
+
+-- =====================================
+-- GAMES
+-- =====================================
+INSERT INTO games (name, description, min_players, max_players) VALUES
+('Catan', 'Juego de estrategia y comercio', 3, 4),
+('Carcassonne', 'Colocación de losetas medieval', 2, 5),
+('Chess', 'Juego clásico de estrategia', 2, 2),
+('Terraforming Mars', 'Estrategia espacial avanzada', 1, 5);
+
+
+-- =====================================
+-- EVENTS
+-- =====================================
+INSERT INTO events (title, description, event_date, event_location, organizer_admin_id) VALUES
+('Torneo Oficial Catan',
+ 'Competición oficial con ranking',
+ '2026-03-15 16:00:00',
+ 'Madrid',
+ 1),
+
+('Noche Casual de Juegos',
+ 'Evento social abierto',
+ '2026-03-20 18:00:00',
+ 'Barcelona',
+ 2);
+
+
+-- =====================================
+-- MATCHES
+-- =====================================
+INSERT INTO matches (game_id, event_id, start_time, end_time) VALUES
+(1, 1, '2026-03-15 16:00:00', '2026-03-15 18:00:00'),
+(1, 1, '2026-03-15 18:30:00', '2026-03-15 20:00:00'),
+(2, 2, '2026-03-20 18:30:00', '2026-03-20 20:00:00'),
+(3, NULL, '2026-03-10 17:00:00', '2026-03-10 18:00:00');
+
+
+-- =====================================
+-- EVENT PARTICIPATIONS
+-- =====================================
+INSERT INTO event_participations (event_id, player_id, ranking) VALUES
+(1, 1, 1),
+(1, 2, 2),
+(1, 3, 3),
+(2, 2, 1),
+(2, 4, 2);
+
+
+-- =====================================
+-- MATCH RESULTS
+-- =====================================
+INSERT INTO match_results (match_id, player_id, score) VALUES
+(1, 1, 10),
+(1, 2, 8),
+(1, 3, 6),
+
+(2, 1, 7),
+(2, 2, 10),
+(2, 3, 9),
+
+(3, 2, 15),
+(3, 4, 12);
