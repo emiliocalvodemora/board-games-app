@@ -6,46 +6,47 @@ TRUNCATE match_results,
          matches,
          events,
          games,
-         players,
-         admins
+         users
 RESTART IDENTITY CASCADE;
 
 
 -- =====================================
--- ADMINS
+-- USERS
 -- password = 123456
 -- =====================================
-INSERT INTO admins (email, password_hash, name) VALUES
+INSERT INTO users (email, password_hash, name, role) VALUES
+
+-- ADMINS
 ('admin1@boardgames.com',
  '$argon2id$v=19$m=65536,t=3,p=1$uW1xQW5kU2VlZEZvclRGRw$H6sJz7v1lXw5H8qW0xN5y0zZ4y3p8VQkM3x1pZ8KxY0',
- 'Admin One'),
+ 'Admin One',
+ 'admin'),
 
 ('admin2@boardgames.com',
  '$argon2id$v=19$m=65536,t=3,p=1$uW1xQW5kU2VlZEZvclRGRw$H6sJz7v1lXw5H8qW0xN5y0zZ4y3p8VQkM3x1pZ8KxY0',
- 'Admin Two');
+ 'Admin Two',
+ 'admin'),
 
-
--- =====================================
 -- PLAYERS
--- password = 123456
--- =====================================
-INSERT INTO players (email, password_hash, name) VALUES
 ('alice@test.com',
  '$argon2id$v=19$m=65536,t=3,p=1$uW1xQW5kU2VlZEZvclRGRw$H6sJz7v1lXw5H8qW0xN5y0zZ4y3p8VQkM3x1pZ8KxY0',
- 'Alice'),
+ 'Alice',
+ 'player'),
 
 ('bob@test.com',
  '$argon2id$v=19$m=65536,t=3,p=1$uW1xQW5kU2VlZEZvclRGRw$H6sJz7v1lXw5H8qW0xN5y0zZ4y3p8VQkM3x1pZ8KxY0',
- 'Bob'),
+ 'Bob',
+ 'player'),
 
 ('charlie@test.com',
  '$argon2id$v=19$m=65536,t=3,p=1$uW1xQW5kU2VlZEZvclRGRw$H6sJz7v1lXw5H8qW0xN5y0zZ4y3p8VQkM3x1pZ8KxY0',
- 'Charlie'),
+ 'Charlie',
+ 'player'),
 
 ('diana@test.com',
  '$argon2id$v=19$m=65536,t=3,p=1$uW1xQW5kU2VlZEZvclRGRw$H6sJz7v1lXw5H8qW0xN5y0zZ4y3p8VQkM3x1pZ8KxY0',
- 'Diana');
-
+ 'Diana',
+ 'player');
 
 -- =====================================
 -- GAMES

@@ -1,20 +1,29 @@
--- Administradores
-CREATE TABLE admins (
+-- Usuarios
+CREATE TABLE users (
     id SERIAL PRIMARY KEY,
     email VARCHAR(320) NOT NULL,
     password_hash VARCHAR(255) NOT NULL,
-    name VARCHAR(100) NOT NULL,
+    name VARCHAR(100) UNIQUE NOT NULL,
+    role VARCHAR(50) NOT NULL CHECK (role IN ('admin', 'player')),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
+-- -- Administradores
+-- CREATE TABLE admins (
+--     id SERIAL PRIMARY KEY,
+--     email VARCHAR(320) NOT NULL,
+--     password_hash VARCHAR(255) NOT NULL,
+--     name VARCHAR(100) NOT NULL,
+--     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+-- );
 
--- Jugadores
-CREATE TABLE players (
-    id SERIAL PRIMARY KEY,
-    email VARCHAR(320) NOT NULL,
-    password_hash VARCHAR(255) NOT NULL,
-    name VARCHAR(100) NOT NULL,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
+-- -- Jugadores
+-- CREATE TABLE players (
+--     id SERIAL PRIMARY KEY,
+--     email VARCHAR(320) NOT NULL,
+--     password_hash VARCHAR(255) NOT NULL,
+--     name VARCHAR(100) NOT NULL,
+--     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+-- );
 
 -- Juegos
 CREATE TABLE games (
@@ -34,7 +43,7 @@ CREATE TABLE events (
     event_location VARCHAR(255),
     organizer_admin_id INT NOT NULL,
     FOREIGN KEY (organizer_admin_id)
-        REFERENCES admins(id)
+        REFERENCES users(id)
         ON DELETE CASCADE
 );
 
@@ -56,7 +65,7 @@ CREATE TABLE event_participations (
     ranking INT,
     PRIMARY KEY (event_id, player_id),
     FOREIGN KEY (event_id) REFERENCES events(id) ON DELETE CASCADE,
-    FOREIGN KEY (player_id) REFERENCES players(id) ON DELETE CASCADE
+    FOREIGN KEY (player_id) REFERENCES users(id) ON DELETE CASCADE
 );
 
 -- Resultados de partidas
@@ -66,5 +75,5 @@ CREATE TABLE match_results (
     score INT,
     PRIMARY KEY (match_id, player_id),
     FOREIGN KEY (match_id) REFERENCES matches(id) ON DELETE CASCADE,
-    FOREIGN KEY (player_id) REFERENCES players(id) ON DELETE CASCADE
+    FOREIGN KEY (player_id) REFERENCES users(id) ON DELETE CASCADE
 );

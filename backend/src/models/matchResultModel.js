@@ -1,33 +1,26 @@
 import pool from "../config/db.js";
 
 
-export const getAllAdminsService = async () => {
-    const result = await pool.query("SELECT * FROM admins");
+export const getAllMatchResultsService = async () => {
+    const result = await pool.query("SELECT * FROM match_results");
     return result.rows;
 };
 
-export const getAdminByIdService = async (id) => {
-    const result = await pool.query("SELECT * FROM admins WHERE admin_id = $1", [id]);
-    return result.rows[0];
-};
-
-export const createAdminService = async (name, email, password_hash) => {
-    const result = await pool.query(
-        "INSERT INTO admins (name, email, password_hash) VALUES ($1, $2, $3) RETURNING *",
-        [name, email, password_hash]
+export const getMatchResultByIdService = async (matchId, playerId) => {
+const result = await pool.query("SELECT * FROM match_results WHERE match_id = $1 AND player_id = $2", [matchId, playerId]); return result.rows[0]; }; export const createMatchResultService = async (matchId, playerId, score) => { const result = await pool.query( "INSERT INTO match_results (match_id, player_id, score) VALUES ($1, $2, $3) RETURNING *", [matchId, playerId, score]
     );
     return result.rows[0];
 };
 
-export const updateAdminService = async (id, name, email, password) => {
+export const updateMatchResultService = async (matchId, playerId, score) => {
     const result = await pool.query(
-        "UPDATE admins SET name = $1, email = $2, password_hash = $3 WHERE id = $4 RETURNING *",
-        [name, email, password, id]
+        "UPDATE match_results SET match_id = $1, player_id = $2, score = $3 WHERE match_id = $1 AND player_id = $2 RETURNING *",
+        [matchId, playerId, score]
     );
     return result.rows[0];
 };  
 
-export const deleteAdminService = async (id) => {
-    const result = await pool.query("DELETE FROM admins WHERE admin_id = $1 RETURNING *", [id]);
+export const deleteMatchResultService = async (matchId, playerId) => {
+    const result = await pool.query("DELETE FROM match_results WHERE match_id = $1 AND player_id = $2 RETURNING *", [matchId, playerId]);
     return result.rows[0];
 };  
