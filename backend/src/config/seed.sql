@@ -18,7 +18,7 @@ INSERT INTO users (email, password_hash, name, role) VALUES
 
 -- ADMINS
 ('admin1@boardgames.com',
- '$argon2id$v=19$m=65536,t=3,p=1$uW1xQW5kU2VlZEZvclRGRw$H6sJz7v1lXw5H8qW0xN5y0zZ4y3p8VQkM3x1pZ8KxY0',
+ '$argon2id$v=19$m=65536,t=3,p=4$uW1xQW5kU2VlZEZvclRGRw$H6sJz7v1lXw5H8qW0xN5y0zZ4y3p8VQkM3x1pZ8KxY0',
  'Admin One',
  'admin'),
 

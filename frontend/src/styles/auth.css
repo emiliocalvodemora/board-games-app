@@ -1,0 +1,41 @@
+@import "tailwindcss";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+
+  .auth-container {
+    @apply min-h-[80vh] flex justify-center items-center;
+  }
+
+  .auth-title {
+    @apply text-2xl font-bold mb-6 text-center;
+  }
+
+  .auth-form {
+    @apply bg-white p-6 rounded shadow-md w-full max-w-lg p-4;
+  }
+
+  .auth-form-title {
+    @apply text-2xl mb-6 font-bold text-center text-gray-800;
+  }
+
+  .auth-input {
+    @apply border p-2 w-full mb-3;
+  }
+
+  .auth-select {
+    @apply border p-2 w-full mb-3;
+  }
+
+  .auth-button {
+    @apply bg-blue-500 text-white p-2 w-full;
+  }
+
+  .auth-error {
+    @apply text-red-500 mb-4;
+  }
+
+}

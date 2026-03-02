@@ -11,6 +11,14 @@ const handleResponse = (res, status, message, data = null) => {
     });
 };
 
+const cookieOptions = {
+    httpOnly: true,
+    secure: false,
+    // secure: process.env.NODE_ENV === "production",
+    sameSite: "strict",
+    maxAge: 7 * 24 * 60 * 60 * 1000 // 7 días
+};
+
 export const register = async(req, res, next) => {
     const { name, email, password, role } = req.body;
     try {
@@ -25,7 +33,6 @@ export const login = async(req, res, next) => {
     try {
     const { name, password } = req.body;
     const user = await getUserByNameService(name);
-
     if (!user) {
         return handleResponse(res, 404, "Usuario no encontrado");
 
@@ -36,11 +43,25 @@ export const login = async(req, res, next) => {
     }
     const token = jwt
     .sign({ 
-        id: user.id, name: user.name, role: user.role }, 
+        id: user.id, name: user.name, email: user.email, role: user.role }, 
         process.env.JWT_SECRET, 
-        { expiresIn: "1h" });
-    handleResponse(res, 200, "Login exitoso", { token });
+        { expiresIn: "7d" });
+    res.cookie("token", token, cookieOptions);
+    handleResponse(res, 200, "Login exitoso", {
+        id: user.id, name: user.name, email: user.email, role: user.role
+    });
     } catch (err) {
         next(err);
     }
+}
+
+export const me = async(req, res) => {
+    // res.cookie("token", req.cookies.token, cookieOptions);
+    handleResponse(res, 200, "Perfil del usuario", req.user);
+}
+
+
+export const logout = (req, res) => {
+    res.clearCookie("token", cookieOptions);
+    handleResponse(res, 200, "Logout exitoso");
 }

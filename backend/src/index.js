@@ -4,6 +4,7 @@ import dotenv from "dotenv"
 import pool from "./config/db.js"
 import argon2 from "argon2"
 import jwt from "jsonwebtoken"
+import cookieParser from "cookie-parser"
 import userRoutes from "./routes/userRoutes.js"
 import authRoutes from "./routes/authRoutes.js"
 // import adminRoutes from "./routes/adminRoutes.js"
@@ -18,7 +19,8 @@ import errorHandling from "./middlewares/errorHandler.js"
 dotenv.config()
 
 const corsOptions = {
-    origin: process.env.CORS_ORIGIN || "http://localhost:5173"
+    origin: process.env.CORS_ORIGIN || "http://localhost:5173",
+    credentials: true
 }
 
 const app = express()
@@ -28,7 +30,7 @@ const port = process.env.PORT || 3001;
 //Middlewares
 app.use(express.json())
 app.use(cors(corsOptions))
-
+app.use(cookieParser());
 //Routes
 
 app.use("/api", userRoutes);
