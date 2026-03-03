@@ -1,5 +1,6 @@
 import React from "react";
 import EventList from "./EventList.jsx";
+import GameList from "./GameList.jsx";
 
 export default function PlayerHome({ user }) {
   return (
@@ -10,6 +11,7 @@ export default function PlayerHome({ user }) {
             <p>Email: {user.email}</p>
             <p>Role: {user.role}</p>
             <p className="mt-4 text-gray-600">Aquí puedes ver tus eventos y gestionar tu participación.</p>
+            <GameList user={user} />
         </div>
         {user?.role === "player" && (
             <EventList user={user} />

@@ -7,8 +7,11 @@ export const getAllMatchResultsService = async () => {
 };
 
 export const getMatchResultByIdService = async (matchId, playerId) => {
-const result = await pool.query("SELECT * FROM match_results WHERE match_id = $1 AND player_id = $2", [matchId, playerId]); return result.rows[0]; }; export const createMatchResultService = async (matchId, playerId, score) => { const result = await pool.query( "INSERT INTO match_results (match_id, player_id, score) VALUES ($1, $2, $3) RETURNING *", [matchId, playerId, score]
-    );
+    const result = await pool.query("SELECT * FROM match_results WHERE match_id = $1 AND player_id = $2", [matchId, playerId]); 
+    return result.rows[0]; }; 
+
+export const createMatchResultService = async (matchId, playerId, score) => { 
+    const result = await pool.query( "INSERT INTO match_results (match_id, player_id, score) VALUES ($1, $2, $3) RETURNING *", [matchId, playerId, score]);
     return result.rows[0];
 };
 

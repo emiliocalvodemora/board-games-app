@@ -44,9 +44,6 @@ const Home = ({user, error}) => {
         <>
           {user.role === "player" && <PlayerHome user={user} />}
           {user.role === "admin" && <AdminHome user={user} />}
-          {user.role !== "player" && user.role !== "admin" && (
-            <p className="text-gray-600">Rol no reconocido.</p>
-          )}
         </>
       ) : (
         <div className="min-h-[80vh] flex flex-col items-center justify-center gap-6">

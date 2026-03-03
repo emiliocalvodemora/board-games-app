@@ -111,7 +111,7 @@ export const validateGame = (req, res, next) => {
 
 const matchScheme = Joi.object({ 
     gameId: Joi.number().integer().required(),
-    eventId: Joi.number().integer().required(),
+    eventId: Joi.number().integer().allow(null),
     startTime: Joi.date().required(),
     endTime: Joi.date().required()
 }); 

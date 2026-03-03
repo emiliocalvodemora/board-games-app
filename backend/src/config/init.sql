@@ -28,7 +28,7 @@ CREATE TABLE users (
 -- Juegos
 CREATE TABLE games (
     id SERIAL PRIMARY KEY,
-    name VARCHAR(100) NOT NULL,
+    name VARCHAR(100) UNIQUE NOT NULL,
     description TEXT,
     min_players INT NOT NULL CHECK (min_players > 0),
     max_players INT NOT NULL CHECK (max_players >= min_players)

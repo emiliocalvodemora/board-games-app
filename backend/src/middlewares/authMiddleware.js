@@ -18,8 +18,7 @@ export const verifyToken = (req, res, next) => {
                 return res.status(403).json({ message: "Autorización inválida" });
             }   
 
-            req.user = user;
-            console.log("Usuario autenticado:", user);  
+            req.user = user; 
             next();
         }   
     )} catch (err) {

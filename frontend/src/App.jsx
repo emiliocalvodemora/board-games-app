@@ -9,10 +9,12 @@ import Login from './pages/Login.jsx';
 import Admin from "./components/Admin.jsx";
 import Game from './components/Game.jsx';
 import GameList from './components/GameList.jsx';
-import GameInput from './components/GameInput';
+import GameForm from './components/GameForm.jsx';
 import NotFound from './components/NotFound.jsx';
 import NavBar from './components/NavBar.jsx';
 import Profile from './pages/Profile.jsx';
+import EventForm from './pages/EventForm.jsx';
+import ProtectedRoute from './components/ProtectedRoute.jsx';
 
 axios.defaults.withCredentials = true;
 
@@ -28,7 +30,6 @@ function App() {
     try {
       const me = await axios.get(`${import.meta.env.VITE_API_URL}/api/auth/me`, { withCredentials: true });
 
-      console.log(me.data.data);
       setUser(me.data.data);
 
     }catch (error) {
@@ -88,6 +89,11 @@ function App() {
         <Route path="/register" element={user ? <Navigate to="/" /> : <Register setUser={setUser}/>} />
         <Route path="/login" element={user ? <Navigate to="/" /> : <Login setUser={setUser} />} />
         <Route path="/profile" element={<Profile user={user} error={error} />} />
+        <Route path="/create-event" element={
+          <ProtectedRoute user={user} allowedRoles={['admin']}>
+            <EventForm user={user} />
+          </ProtectedRoute>
+        } />
         <Route path="/game/:id" element={<Game />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
@@ -103,7 +109,7 @@ function App() {
 
       <br />  
       <div>
-        <GameInput handleAddGames={handleAddGames} />
+        <GameForm handleAddGames={handleAddGames} />
         <Game gameId={2} />
       </div> */}
       {/* <div>
