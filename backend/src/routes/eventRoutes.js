@@ -1,5 +1,12 @@
 import express from "express"
-import { createEvent, deleteEvent, getAllEvents, getEventById, updateEvent, getEventByAdminId, getUserEvents } from "../controllers/eventController.js";
+import { createEvent, 
+    deleteEvent, 
+    getAllEvents, 
+    getEventById, 
+    updateEvent, 
+    getEventByAdminId, 
+    getUserEvents, 
+    getNotUserEvents } from "../controllers/eventController.js";
 import { validateEvent } from "../middlewares/inputValidator.js";
 import { verifyToken } from "../middlewares/authMiddleware.js";
 
@@ -13,5 +20,6 @@ router.put ("/event/:id", verifyToken, validateEvent, updateEvent);
 router.delete ("/event/:id", verifyToken, deleteEvent);
 
 router.get("/my-events", verifyToken, getUserEvents);
+router.get("/other-events", verifyToken, getNotUserEvents);
 
 export default router;

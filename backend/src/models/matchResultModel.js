@@ -27,3 +27,8 @@ export const deleteMatchResultService = async (matchId, playerId) => {
     const result = await pool.query("DELETE FROM match_results WHERE match_id = $1 AND player_id = $2 RETURNING *", [matchId, playerId]);
     return result.rows[0];
 };  
+
+export const getMatchResultsByMatchIdService = async (matchId) => {
+    const result = await pool.query("SELECT * FROM match_results WHERE match_id = $1", [matchId]);
+    return result.rows;
+};

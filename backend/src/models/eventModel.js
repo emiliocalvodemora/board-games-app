@@ -33,6 +33,9 @@ export const updateEventService = async (id, title, description, event_date, eve
 };  
 
 export const deleteEventService = async (id) => {
+    await pool.query("DELETE FROM match_results WHERE match_id IN (SELECT id FROM matches WHERE event_id = $1)", [id]);
+    await pool.query("DELETE FROM matches WHERE event_id = $1", [id]);
+    await pool.query("DELETE FROM event_participations WHERE event_id = $1", [id]);
     const result = await pool.query("DELETE FROM events WHERE id = $1 RETURNING *", [id]);
     return result.rows[0];
 };  
@@ -42,6 +45,18 @@ export const getUserEventsService = async (userId) => {
         `SELECT e.* FROM events e
         JOIN event_participations ep ON e.id = ep.event_id
         WHERE ep.player_id = $1
+        ORDER BY e.event_date ASC`,
+        [userId]
+    );
+    return result.rows;
+};
+
+export const getNotUserEventsService = async (userId) => {
+    const result = await pool.query(
+        `SELECT e.* FROM events e  
+        WHERE e.id NOT IN (
+            SELECT ep.event_id FROM event_participations ep WHERE ep.player_id = $1
+        )
         ORDER BY e.event_date ASC`,
         [userId]
     );

@@ -13,15 +13,15 @@ import GameForm from './components/GameForm.jsx';
 import NotFound from './components/NotFound.jsx';
 import NavBar from './components/NavBar.jsx';
 import Profile from './pages/Profile.jsx';
-import EventForm from './pages/EventForm.jsx';
 import ProtectedRoute from './components/ProtectedRoute.jsx';
+import {useFetchMe} from './hooks/useFetchMe.js';
 
 axios.defaults.withCredentials = true;
 
 function App() {
+  const [user, setUser] = useFetchMe();
   const [count, setCount] = useState(0)
   const [array, setArray] = useState([]);
-  const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true); 
   const [responseMessage, setResponseMessage] = useState('');
   const [error , setError] = useState("");
@@ -39,6 +39,8 @@ function App() {
       setLoading(false);
     }
   };
+
+
 
   useEffect(() => {
     fetchMe();  
@@ -89,11 +91,6 @@ function App() {
         <Route path="/register" element={user ? <Navigate to="/" /> : <Register setUser={setUser}/>} />
         <Route path="/login" element={user ? <Navigate to="/" /> : <Login setUser={setUser} />} />
         <Route path="/profile" element={<Profile user={user} error={error} />} />
-        <Route path="/create-event" element={
-          <ProtectedRoute user={user} allowedRoles={['admin']}>
-            <EventForm user={user} />
-          </ProtectedRoute>
-        } />
         <Route path="/game/:id" element={<Game />} />
         <Route path="*" element={<NotFound />} />
       </Routes>

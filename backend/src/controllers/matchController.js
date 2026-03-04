@@ -1,4 +1,11 @@
-import { createMatchService, deleteMatchService, getAllMatchsService, getMatchByIdService, updateMatchService } from "../models/matchModel.js";
+import { createMatchService, 
+    deleteMatchService, 
+    getAllMatchsService, 
+    getMatchByIdService, 
+    updateMatchService, 
+    getUserMatchesService, 
+    getNotUserMatchesService
+} from "../models/matchModel.js";
 
 //Standard response function
 const handleResponse = (res, status, message, data = null) => {
@@ -60,6 +67,26 @@ export const deleteMatch = async (req, res, next) => {
             return handleResponse(res, 404, "Partida no encontrada");
         }
         handleResponse(res, 200, "Partida borrada con éxito", deletedMatch);
+    } catch (err) {
+        next(err);
+    }
+};
+
+export const getUserMatches = async (req, res, next) => {
+    const userId = req.user.id;
+    try {
+        const matches = await getUserMatchesService(userId);
+        handleResponse(res, 200, "Mis partidas obtenidas con éxito", matches);
+    } catch (err) {
+        next(err);
+    }
+};
+
+export const getNotUserMatches = async (req, res, next) => {
+    const userId = req.user.id;
+    try {
+        const matches = await getNotUserMatchesService(userId);
+        handleResponse(res, 200, "Partidas de otros jugadores obtenidas con éxito", matches);
     } catch (err) {
         next(err);
     }

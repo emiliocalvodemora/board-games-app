@@ -70,7 +70,7 @@ export const updateEventParticipation = async (req, res, next) => {
 };
 
 export const deleteEventParticipation = async (req, res, next) => {
-    const { eventId, playerId} = req.body;
+    const { eventId, playerId} = req.params;
     try {
         const deletedEventParticipation = await deleteEventParticipationService(eventId, playerId);
         if (!deletedEventParticipation) {

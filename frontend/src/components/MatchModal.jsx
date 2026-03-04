@@ -1,39 +1,24 @@
 import { use, useState, useEffect  } from "react";
-import axios from "axios";
+import { useMatch } from "../hooks/useMatch.js";
 
 export default function MatchModal({ user, game, onClose, onSubmit }) {
+    const { events, loadingEvents, handleSubmitMatch } = useMatch(user.id);
     const [startTime, setStartTime] = useState("");
     const [endTime, setEndTime] = useState("");
-    const [events, setEvents] = useState([]);
     const [selectedEvent, setSelectedEvent] = useState("");
     const [score, setScore] = useState("");
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        onSubmit({
-        gameId: game.id,
-        eventId: selectedEvent === "" ? null : selectedEvent,
-        startTime,
-        endTime,
-        score: score ? parseInt(score) : 0
+        await handleSubmitMatch({
+            gameId: game.id,
+            eventId: selectedEvent === "" ? null : selectedEvent,
+            startTime,
+            endTime,
+            score: score ? parseInt(score) : 0
         });
+        onClose();
     };
-
-    const fetchMyEvents = async () => {
-    try {
-        const response = await axios.get(
-            `${import.meta.env.VITE_API_URL}/api/my-events`,
-            { withCredentials: true }
-        );
-        setEvents(response.data.data);
-        } catch (error) {
-        console.error("Error cargando eventos:", error);
-        }
-    };
-
-    useEffect(() => {
-        fetchMyEvents();
-    }, []);
 
     return (
     <div className="fixed inset-0 bg-black/30 bg-opacity-10 flex justify-center items-center z-50">

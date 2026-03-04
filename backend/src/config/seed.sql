@@ -109,4 +109,7 @@ INSERT INTO match_results (match_id, player_id, score) VALUES
 (2, 3, 9),
 
 (3, 2, 15),
-(3, 4, 12);
+(3, 4, 12),
+
+(4, 2, 15),
+(4, 3, 12);

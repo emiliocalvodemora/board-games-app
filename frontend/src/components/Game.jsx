@@ -33,7 +33,7 @@ export default function Game({ game: initialGame, gameId, onClick }) {
   if (!game) return <p>Juego no encontrado</p>;
 
   return (
-    <button className="bg-white rounded-xl shadow-md p-4 hover:shadow-xl transition-shadow flex flex-col justify-between" onClick={() => onClick(game)}>
+    <button className="bg-white rounded-xl shadow-md p-4 hover:shadow-xl transition-shadow flex flex-col justify-between cursor-pointer" onClick={() => onClick(game)}>
       <h2 className="text-xl font-bold mb-2 flex items-center gap-2">
         <i className="fa-solid fa-trash-can text-gray-400 hover:text-red-500 cursor-pointer"></i>
         <i className="fa-solid fa-pen-to-square text-gray-400 hover:text-blue-500 cursor-pointer"></i>

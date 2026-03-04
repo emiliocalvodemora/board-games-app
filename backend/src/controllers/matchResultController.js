@@ -3,7 +3,8 @@ import {
     deleteMatchResultService, 
     getAllMatchResultsService, 
     getMatchResultByIdService,
-    updateMatchResultService 
+    updateMatchResultService,
+    getMatchResultsByMatchIdService 
 } from "../models/matchResultModel.js";
 
 //Standard response function
@@ -60,13 +61,25 @@ export const updateMatchResult = async (req, res, next) => {
 };
 
 export const deleteMatchResult = async (req, res, next) => {
-    const { matchId, playerId} = req.body;
+    const { matchId, playerId} = req.params;
     try {
         const deletedMatchResult = await deleteMatchResultService(matchId, playerId);
         if (!deletedMatchResult) {
             return handleResponse(res, 404, "Resultado de partido no encontrado");
         }
         handleResponse(res, 200, "Resultado de partido borrado con éxito", deletedMatchResult);
+    } catch (err) {
+        next(err);
+    }
+};
+
+export const getMatchResultsByMatchId = async (req, res, next) => {
+    try {
+        const matchResults = await getMatchResultsByMatchIdService(req.params.matchId);
+        if (!matchResults || matchResults.length === 0) {
+            return handleResponse(res, 404, "Resultados de partido no encontrados para el matchId proporcionado");
+        }
+        handleResponse(res, 200, "Resultados de partido obtenidos con éxito", matchResults);
     } catch (err) {
         next(err);
     }

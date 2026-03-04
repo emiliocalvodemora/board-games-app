@@ -1,4 +1,12 @@
-import { createEventService, deleteEventService, getAllEventsService, getEventByIdService, updateEventService, getEventByAdminIdService, getUserEventsService } from "../models/eventModel.js";
+import { createEventService, 
+    deleteEventService, 
+    getAllEventsService, 
+    getEventByIdService, 
+    updateEventService, 
+    getEventByAdminIdService, 
+    getUserEventsService, 
+    getNotUserEventsService 
+} from "../models/eventModel.js";
 
 //Standard response function
 const handleResponse = (res, status, message, data = null) => {
@@ -81,6 +89,15 @@ export const getUserEvents = async (req, res, next) => {
     try {
         const events = await getUserEventsService(req.user.id);
         handleResponse(res, 200, "Eventos del usuario obtenidos con éxito", events);
+    } catch (err) {
+        next(err);
+    }   
+};
+
+export const getNotUserEvents = async (req, res, next) => {
+    try {
+        const events = await getNotUserEventsService(req.user.id);
+        handleResponse(res, 200, "Eventos no participados por el usuario obtenidos con éxito", events);
     } catch (err) {
         next(err);
     }   

@@ -43,11 +43,11 @@
   }
 
   .navbar-login {
-    @apply mx-2 bg-white text-black px-4 py-2 rounded hover:bg-gray-200 transition;
+    @apply mx-2 bg-blue-600 px-4 py-2 rounded hover:bg-blue-700 transition;
   }
 
   .navbar-register {
-    @apply mx-2 bg-blue-600 px-4 py-2 rounded hover:bg-blue-700 transition;
+    @apply mx-2 bg-white text-black px-4 py-2 rounded hover:bg-gray-200 transition;
   }
 
   .navbar-auth {

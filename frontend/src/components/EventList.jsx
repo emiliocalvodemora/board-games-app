@@ -3,43 +3,90 @@ import { useState, useEffect } from 'react'
 import axios from 'axios'
 import Event from './Event.jsx';
 import Sidebar from "./Sidebar.jsx";
-import {useNavigate} from 'react-router-dom';
+import ConfirmModal from './ConfirmModal.jsx';
+import CreateEventModal from './CreateEventModal.jsx';
+import DeleteEventModal from './DeleteEventModal.jsx';
 
 export default function EventList({ user }) {
     
   const [loading, setLoading] = useState(true); 
-  const [eventParticipation, setEventParticipation] = useState([]);
+  const [myEvents, setMyEvents] = useState([]);
   const [adminEvents, setAdminEvents] = useState([]);
-  const [filteredEvents, setFilteredEvents] = useState([]);
+  const [otherEvents, setOtherEvents] = useState([]);
   const [error , setError] = useState("");
-
-  const navigate = useNavigate();
+  const [selectedEvent, setSelectedEvent] = useState(null);
+  const [showConfirmModal, setShowConfirmModal] = useState(false);
+  const [modalType, setModalType] = useState("join");
+  const [showCreateEventModal, setShowCreateEventModal] = useState(false);
+  const [showDeleteEventModal, setShowDeleteEventModal] = useState(false);  
   
   const crearEvento = () => {
-      navigate('/create-event');
+    setShowCreateEventModal(true);
   }
 
-  const handleJoin = async (eventId) => {
+  const handleJoinClick = (event) => {
+    setSelectedEvent(event);
+    setModalType("join");
+    setShowConfirmModal(true);
+  };
+
+  const handleLeaveClick = (event) => {
+    setSelectedEvent(event);
+    setModalType("leave");
+    setShowConfirmModal(true);
+  };
+
+  const handleDeleteClick = async (event) => {
+    if (!event) return;
+    setSelectedEvent(event);
+    setModalType("delete");
+    setShowDeleteEventModal(true);
+  };
+
+  const handleCancelModal = () => {
+    setSelectedEvent(null);
+    setShowConfirmModal(false);
+    setShowDeleteEventModal(false);
+  };
+
+  const handleConfirmJoin = async () => {
+    if (!selectedEvent) return;
+
     try {
-      await axios.post(`${import.meta.env.VITE_API_URL}/api/eventParticipation`, 
-        {eventId: eventId, playerId: user.id, ranking: null}, 
-        { withCredentials: true }
-      );
-      
-      setEventParticipation(prev => [...prev, { event_id: eventId }]);
-      setFilteredEvents(prev => prev.filter(e => e.id !== eventId));
+      if (modalType === "join") {
+        await axios.post(
+          `${import.meta.env.VITE_API_URL}/api/eventParticipation`,
+          { eventId: selectedEvent.id, playerId: user.id, ranking: null },
+          { withCredentials: true }
+        );
+        fetchEvents();
+        fetchOtherEvents();
+      } else if (modalType === "leave") {
+        console.log("Intentando salir del evento con ID:", selectedEvent.id);
+        console.log("User ID:", user.id);
+        await axios.delete(
+          `${import.meta.env.VITE_API_URL}/api/eventParticipation/${selectedEvent.id}/${user.id}`,
+          { withCredentials: true }
+        );
+        fetchEvents();
+        fetchOtherEvents();
+      }
     } catch (error) {
       console.error("Error al unirse al evento:", error);
       setError("Error al unirse al evento");
+    } finally {
+      setSelectedEvent(null);
+      setShowConfirmModal(false);
+      setShowDeleteEventModal(false);
     }
   };
+
 
   const fetchEvents = async () => {
     if (user?.id && user.role === "player") {
       try {
-        const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/eventParticipation/${user.id}`, { withCredentials: true });
-        setEventParticipation(response.data.data);
-
+        const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/my-events`, { withCredentials: true });
+        setMyEvents(response.data.data);
       }catch (error) {
         setError("Error fetching event data");
       }finally {
@@ -57,11 +104,10 @@ export default function EventList({ user }) {
     }
   };
 
-  const fetchFilteredEvents = async () => {
+  const fetchOtherEvents = async () => {
     try {
-      const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/event`, { withCredentials: true });
-      const filteredEventsTemp = response.data.data.filter(event => !eventParticipation.some(participation => participation.event_id === event.id));
-      setFilteredEvents(filteredEventsTemp);
+      const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/other-events`, { withCredentials: true });
+      setOtherEvents(response.data.data);
     } catch (error) {
       setError("Error filtering events");
     }
@@ -70,7 +116,7 @@ export default function EventList({ user }) {
   useEffect(() => { 
     if (user?.id) { 
       fetchEvents(); 
-      fetchFilteredEvents(); 
+      fetchOtherEvents(); 
     } 
   }, [user]);
 
@@ -92,29 +138,63 @@ export default function EventList({ user }) {
 
       {loading && <p>Cargando eventos...</p>}
       {error && <p className="text-red-500">{error}</p>}
-      {user?.role === "player" && eventParticipation.length > 0 && (
+      {user?.role === "player" && myEvents.length > 0 && (
         <div className="flex items-center my-6">
           <hr className="flex-grow border-gray-300" />
           <span className="mx-4 text-gray-500 font-semibold">Eventos apuntados</span>
           <hr className="flex-grow border-gray-300" />
         </div>
       )}
-      {user?.role === "player" && eventParticipation.map((event) => (
-        <Event user={user} key={event.event_id} event={event} />
+      {user?.role === "player" && myEvents.map((event) => (
+        <Event onLeave={() => handleLeaveClick(event)} isJoinable={false} user={user} key={event.id} event={event}/>
       ))}
-      {user?.role === "player" && filteredEvents.length > 0 && (
+      {user?.role === "player" && otherEvents.length > 0 && (
         <div className="flex items-center my-6">
           <hr className="flex-grow border-gray-300" />
           <span className="mx-4 text-gray-500 font-semibold">Eventos disponibles</span>
           <hr className="flex-grow border-gray-300" />
         </div>
       )}
-      {user?.role === "player" && filteredEvents.map((event) => (
-        <Event onJoin={handleJoin} isJoinable={true} key={event.id} event={event} />
+      {user?.role === "player" && otherEvents.map((event) => (
+        <Event onJoin={() => handleJoinClick(event)} isJoinable={true} user={user} key={event.id} event={event} />
       ))}
       {user?.role === "admin" && adminEvents.map((event) => (
-        <Event user={user} key={event.id} event={event} />
+        <Event onDelete={() => handleDeleteClick(event)} user={user} key={event.id} event={event} />
       ))}
+      {showCreateEventModal && (
+        <CreateEventModal 
+          user={user} 
+          onClose={() => setShowCreateEventModal(false)} 
+          onCreated={() => {
+            fetchEvents();
+            fetchOtherEvents();
+            setShowCreateEventModal(false);
+          }} 
+        />
+      )}
+      {showConfirmModal && selectedEvent && (
+        <ConfirmModal
+          title="Confirmar participación"
+          message={`¿Quieres ${modalType === "join" ? "unirte al" : "abandonar el"} evento "${selectedEvent.title}"?`}
+          onConfirm={handleConfirmJoin}
+          onCancel={handleCancelModal}
+        />
+      )}
+      {showDeleteEventModal && (
+        <DeleteEventModal 
+          user={user} 
+          event={selectedEvent}
+          onClose={() => {
+            setShowDeleteEventModal(false)
+            setSelectedEvent(null);}} 
+          onDeleted={() => {
+            fetchEvents();
+            fetchOtherEvents();
+            setSelectedEvent(null);
+            setShowDeleteEventModal(false);
+          }} 
+        />
+      )}
     </Sidebar>
   )
 }
