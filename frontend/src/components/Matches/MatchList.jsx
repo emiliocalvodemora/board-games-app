@@ -2,8 +2,10 @@ import React from 'react'
 import { useState, useEffect } from 'react'
 import axios from 'axios'
 import Match from './Match';
-import JoinMatchModal from './JoinMatchModal.jsx';
+import JoinMatchModal from '../Modals/JoinMatchModal.jsx';
 
+// Componente que lista las partidas registradas por el usuario y las disponibles para unirse
+// También permite al usuario unirse a una partida existente a través de un modal
 export default function MatchList({ user }) {
     const [loading, setLoading] = useState(true); 
     const [myMatches, setMyMatches] = useState([]);

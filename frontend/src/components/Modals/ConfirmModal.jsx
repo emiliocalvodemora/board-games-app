@@ -1,10 +1,11 @@
 import React from "react";
 
+// Modal de confirmación genérico, utilizado para confirmar acciones como unirse o abandonar un evento
 export default function ConfirmModal({ title, message, onConfirm, onCancel }) {
     return (
-        <div className="fixed inset-0 bg-black/30 flex justify-center items-center z-50">
-            <div className="bg-white rounded-xl p-6 w-96 shadow-xl relative">
-                <h2 className="text-xl font-bold mb-4">{title}</h2>
+        <div className="modal-overlay">
+            <div className="modal-container">
+                <h2 className="modal-title">{title}</h2>
                 <p className="mb-4">{message}</p>
                 <div className="flex justify-end gap-4">
                 <button

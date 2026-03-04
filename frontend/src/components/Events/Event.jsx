@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 
+// Componente que muestra la información de un evento, incluyendo título, descripción, ubicación y fecha. Permite al usuario unirse o abandonar el evento si es un jugador, o eliminar el evento si es un admin.
 export default function Event({ user, event, onJoin, onLeave, onDelete, isJoinable }) {
 
   const [error, setError] = useState(null);
@@ -16,7 +17,7 @@ export default function Event({ user, event, onJoin, onLeave, onDelete, isJoinab
 
   return (
     <button 
-      className={`bg-white rounded-xl shadow-md p-4 mb-4 hover:shadow-lg transition-shadow cursor-pointer}`}
+      className={`bg-white rounded-xl shadow-md p-4 mb-4 hover:shadow-lg transition-shadow cursor-pointer items-center text-center`}
       onClick={handleClick}
     >
       <h3 className="text-lg font-bold mb-2 items-center">

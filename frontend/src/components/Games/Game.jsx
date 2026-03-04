@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 
+// Componente que muestra la información de un juego, incluyendo su nombre, descripción y número de jugadores. También incluye botones para editar o eliminar el juego (funcionalidad no implementada en este snippet).
 export default function Game({ game: initialGame, gameId, onClick }) {
 
   const [game, setGame] = useState(initialGame || null);
@@ -33,10 +34,9 @@ export default function Game({ game: initialGame, gameId, onClick }) {
   if (!game) return <p>Juego no encontrado</p>;
 
   return (
-    <button className="bg-white rounded-xl shadow-md p-4 hover:shadow-xl transition-shadow flex flex-col justify-between cursor-pointer" onClick={() => onClick(game)}>
-      <h2 className="text-xl font-bold mb-2 flex items-center gap-2">
-        <i className="fa-solid fa-trash-can text-gray-400 hover:text-red-500 cursor-pointer"></i>
-        <i className="fa-solid fa-pen-to-square text-gray-400 hover:text-blue-500 cursor-pointer"></i>
+    <button className="items-center text-center bg-white rounded-xl shadow-md p-4 hover:shadow-xl transition-shadow flex flex-col justify-between cursor-pointer" onClick={() => onClick(game)}>
+      <h2 className="text-xl font-bold mb-2 flex items-center text-center gap-2">
+        <i class="fa-solid fa-arrow-right-to-bracket"></i>
         {game.name}
       </h2>
       <p className="text-gray-600 mb-2 flex-grow">{game.description}</p>

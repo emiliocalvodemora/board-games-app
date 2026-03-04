@@ -1,5 +1,6 @@
 import { useState } from "react";
 
+// Modal para añadir un nuevo juego
 export default function AddGameModal({ onClose, onSubmit }) {
 
     const [name, setName] = useState("");
@@ -19,9 +20,9 @@ export default function AddGameModal({ onClose, onSubmit }) {
     };
 
     return (
-        <div className="fixed inset-0 bg-black/30 flex justify-center items-center z-50">
-        <div className="bg-white rounded-xl p-6 w-96 shadow-xl">
-            <h2 className="text-xl font-bold mb-4">
+        <div className="modal-overlay">
+        <div className="modal-container">
+            <h2 className="modal-title">
             Añadir nuevo juego
             </h2>
 

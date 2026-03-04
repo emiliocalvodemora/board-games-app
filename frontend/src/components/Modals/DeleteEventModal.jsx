@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 
+// Modal de confirmación para borrar un evento, solo accesible para el admin del evento
 export default function DeleteEventModal({ user, event, onClose, onDeleted }) {
   const [error, setError] = useState("");
 
@@ -19,10 +20,10 @@ export default function DeleteEventModal({ user, event, onClose, onDeleted }) {
   };
 
   return (
-    <div className="fixed inset-0 bg-black/30 bg-opacity-50 flex items-center justify-center z-50">
-      <div className="bg-white p-6 rounded-xl w-full max-w-md">
-        <h2 className="text-xl font-bold mb-4">Borrar Evento</h2>
-        {error && <p className="text-red-500 mb-2">{error}</p>}
+    <div className="modal-overlay">
+      <div className="modal-container">
+        <h2 className="modal-title">Borrar Evento</h2>
+        {error && <p className="auth-error">{error}</p>}
         <p className="mb-4">¿Estás seguro de que quieres borrar el evento "{event.title}"?</p>
         <div className="flex justify-end gap-2">
           <button onClick={onClose} className="px-4 py-2 border rounded">Cancelar</button>

@@ -1,5 +1,6 @@
 import { useState } from "react";
 
+// Modal de confirmación para apuntarse a una partida existente, con un campo opcional para introducir la puntuación al unirse
 export default function JoinMatchModal({ user, match, onClose, onSubmit }) {
     const [score, setScore] = useState("");
 
@@ -15,9 +16,9 @@ export default function JoinMatchModal({ user, match, onClose, onSubmit }) {
     };
 
     return (
-        <div className="fixed inset-0 bg-black/30 flex justify-center items-center z-50">
-            <div className="bg-white rounded-xl p-6 w-96 shadow-xl relative">
-                <h2 className="text-xl font-bold mb-4">
+        <div className="modal-overlay">
+            <div className="modal-container">
+                <h2 className="modal-title">
                     Apuntarse a la partida
                 </h2>
 

@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 
+// Componente que muestra la información de una partida, incluyendo el juego, los jugadores y la puntuación del usuario
 export default function Match({ match, onClick, isJoinable }) {
 
   const [loading, setLoading] = useState(!match.id);
@@ -54,10 +55,9 @@ export default function Match({ match, onClick, isJoinable }) {
   if (error) return <p>Error: {error}</p>;
 
   return (
-    <button className={`bg-white rounded-xl shadow-md p-4 hover:shadow-xl transition-shadow flex flex-col justify-between ${isJoinable ? 'cursor-pointer' : ''}`} onClick={handleClick}>
+    <button className={`items-center text-center bg-white rounded-xl shadow-md p-4 hover:shadow-xl transition-shadow flex flex-col justify-between ${isJoinable ? 'cursor-pointer' : ''}`} onClick={handleClick}>
       <h2 className="text-xl font-bold mb-2 flex items-center gap-2">
-        {isJoinable && <i className="fa-solid fa-trash-can text-gray-400 hover:text-red-500 cursor-pointer"></i>}
-        <i className="fa-solid fa-pen-to-square text-gray-400 hover:text-blue-500 cursor-pointer"></i>
+        {isJoinable && <i className="fa-solid fa-arrow-right-to-bracket"></i>}
         {match.event_id ? `Partida del evento ${match.event_id}` : `Partida sin evento`}
       </h2>
       <p className="text-gray-600 mb-2 flex-grow">{match.game_name || 'Cargando juego...'}</p>

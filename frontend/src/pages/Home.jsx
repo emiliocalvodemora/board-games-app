@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom';
-import PlayerHome from '../components/PlayerHome.jsx';
-import AdminHome from '../components/AdminHome.jsx';
+import PlayerHome from '../components/Users/PlayerHome.jsx';
+import AdminHome from '../components/Users/AdminHome.jsx';
 
 // Página de inicio que muestra diferentes vistas según el rol del usuario
 const Home = ({user, error}) => {

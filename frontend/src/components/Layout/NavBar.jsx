@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 
+// Componente de barra de navegación, que muestra el nombre del usuario y un menú desplegable con opciones para ver el perfil o cerrar sesión.
 const NavBar = ({ user, setUser }) => {
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);

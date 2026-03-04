@@ -1,6 +1,7 @@
 import { use, useState, useEffect  } from "react";
-import { useMatch } from "../hooks/useMatch.js";
+import { useMatch } from "../../hooks/useMatch.js";
 
+//Modal que muestra un formulario para crear una nueva partida
 export default function MatchModal({ user, game, onClose, onSubmit }) {
     const { events, loadingEvents, handleSubmitMatch } = useMatch(user.id);
     const [startTime, setStartTime] = useState("");
@@ -21,10 +22,10 @@ export default function MatchModal({ user, game, onClose, onSubmit }) {
     };
 
     return (
-    <div className="fixed inset-0 bg-black/30 bg-opacity-10 flex justify-center items-center z-50">
-        <div className="bg-white rounded-xl p-6 w-96 shadow-xl relative">
+    <div className="modal-overlay">
+        <div className="modal-container">
         
-        <h2 className="text-xl font-bold mb-4">
+        <h2 className="modal-title">
             Nueva partida de {game.name}
         </h2>
 

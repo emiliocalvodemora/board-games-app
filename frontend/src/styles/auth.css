@@ -54,4 +54,8 @@
     @apply text-red-500 mb-4;
   }
 
+  .auth-error-404 {
+    @apply min-h-[80vh] flex items-center justify-center text-gray-900 text-2xl;
+  }
+
 }

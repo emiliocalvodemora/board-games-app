@@ -2,11 +2,13 @@ import React from 'react'
 import { useState, useEffect } from 'react'
 import axios from 'axios'
 import Event from './Event.jsx';
-import Sidebar from "./Sidebar.jsx";
-import ConfirmModal from './ConfirmModal.jsx';
-import CreateEventModal from './CreateEventModal.jsx';
-import DeleteEventModal from './DeleteEventModal.jsx';
+import Sidebar from "../Layout/Sidebar.jsx";
+import ConfirmModal from '../Modals/ConfirmModal.jsx';
+import CreateEventModal from '../Modals/CreateEventModal.jsx';
+import DeleteEventModal from '../Modals/DeleteEventModal.jsx';
 
+// Componente que muestra la lista de eventos disponibles y los eventos a los que el usuario está apuntado. Permite al usuario unirse o abandonar eventos a través de modales de confirmación
+// La vista de los admins muestra los eventos que han creado ellos mismos, con la opción de eliminar cada evento a través de un modal de confirmación, además de crear nuevos
 export default function EventList({ user }) {
     
   const [loading, setLoading] = useState(true); 

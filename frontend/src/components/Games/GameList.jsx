@@ -2,9 +2,10 @@ import React from 'react'
 import { useState, useEffect } from 'react'
 import axios from 'axios'
 import Game from './Game';
-import MatchModal from './MatchModal.jsx';
-import AddGameModal from './AddGameModal.jsx';
+import MatchModal from '../Modals/MatchModal.jsx';
+import AddGameModal from '../Modals/AddGameModal.jsx';
 
+// Componente que muestra la lista de juegos disponibles, permite al usuario registrar una partida para un juego seleccionado y añadir nuevos juegos a través de un modal
 export default function GameList({ user }) {
   const [games, setGames] = useState([]);
   const [selectedGame, setSelectedGame] = useState(null);

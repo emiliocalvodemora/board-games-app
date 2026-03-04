@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 
+// Modal para crear un nuevo evento, solo accesible para admins
 export default function CreateEventModal({ user, onClose, onCreated }) {
     const [form, setForm] = useState({
         title: '',
@@ -29,10 +30,10 @@ export default function CreateEventModal({ user, onClose, onCreated }) {
     };
 
     return (
-        <div className="fixed inset-0 bg-black/30 bg-opacity-50 flex items-center justify-center z-50">
-        <div className="bg-white p-6 rounded-xl w-full max-w-md">
-            <h2 className="text-xl font-bold mb-4">Crear Evento</h2>
-            {error && <p className="text-red-500 mb-2">{error}</p>}
+        <div className="modal-overlay">
+        <div className="modal-container">
+            <h2 className="modal-title">Crear Evento</h2>
+            {error && <p className="auth-error">{error}</p>}
             <form onSubmit={handleSubmit} className="flex flex-col gap-3">
             <input 
                 type="text" 

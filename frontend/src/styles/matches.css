@@ -1,0 +1,16 @@
+@import "tailwindcss";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .match-container {
+    @apply bg-white rounded-xl shadow-md p-4 hover:shadow-xl transition-shadow flex flex-col justify-between;
+  }
+
+  .match-title {
+    @apply text-xl font-bold mb-2 flex items-center gap-2;
+  }
+
+}

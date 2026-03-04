@@ -4,9 +4,9 @@ import axios from 'axios';
 import Home from './pages/Home.jsx';
 import Register from './pages/Register.jsx';
 import Login from './pages/Login.jsx';
-import NavBar from './components/NavBar.jsx';
+import NavBar from './components/Layout/NavBar.jsx';
 import Profile from './pages/Profile.jsx';
-import NotFound from './components/NotFound.jsx';
+import NotFound from './pages/NotFound.jsx';
 
 axios.defaults.withCredentials = true;
 
