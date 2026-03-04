@@ -1,5 +1,6 @@
 import axios from "axios";
 
+// Servicio para manejar la creación de una partida
 export const createMatch = async (matchData, userId) => {
     const {score, ...matchInfo} = matchData;
     const response = await axios.post(`${import.meta.env.VITE_API_URL}/api/match`, matchInfo, { withCredentials: true });
@@ -13,6 +14,7 @@ export const createMatch = async (matchData, userId) => {
     return response.data.data;
 }
 
+//Servicio para obtener los eventos a los que el usuario se ha unido
 export const fetchUserEvents = async (userId) => {
     try {
         const response = await axios.get(

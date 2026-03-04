@@ -2,6 +2,7 @@ import React from 'react'
 import {useNavigate} from 'react-router-dom';
 import axios from 'axios';
 
+// Página de registro
 const Register = ({ setUser }) => {
   const [form, setForm] = React.useState({
     name: '',
@@ -10,28 +11,28 @@ const Register = ({ setUser }) => {
     role: 'player',
   });
 
-const [error, setError] = React.useState("");
-const navigate = useNavigate();
+  const [error, setError] = React.useState("");
+  const navigate = useNavigate();
 
-const handleSubmit = async (e) => {
-  e.preventDefault();
-  try {
-    const response = await axios.post(`${import.meta.env.VITE_API_URL}/api/auth/register`, form);
-    navigate('/login');
-  } catch (error) {
-    console.error('Error registering:', error);
-    setError("Registro fallido");
-  }
-};
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await axios.post(`${import.meta.env.VITE_API_URL}/api/auth/register`, form);
+      navigate('/login');
+    } catch (error) {
+      console.error('Error registrando:', error);
+      setError("Registro fallido");
+    }
+  };
 
   return (
     <div className="auth-container">
       <form onSubmit={handleSubmit} className="auth-form">
-        <h2 className='auth-form-title'>Register</h2>
+        <h2 className='auth-form-title'>Registro</h2>
         {error && <p className="auth-error">{error}</p>}
         <input 
           type="text" 
-          placeholder="name" 
+          placeholder="nombre" 
           className='auth-input' 
           value={form.name} 
           onChange={(e) => setForm({...form, name: e.target.value})} />
@@ -43,21 +44,21 @@ const handleSubmit = async (e) => {
           onChange={(e) => setForm({...form, email: e.target.value})} />
         <input 
           type="password" 
-          placeholder="password" 
+          placeholder="contraseña" 
           className='auth-input' 
           value={form.password} 
           onChange={(e) => setForm({...form, password: e.target.value})} />
         <select 
           type="role" 
-          placeholder="role" 
+          placeholder="Rol" 
           className='auth-input' 
           value={form.role} 
           onChange={(e) => setForm({...form, role: e.target.value})}> 
-          <option value="">Select role</option>
-          <option value="player">Player</option>
+          <option value="">Selecciona rol</option>
+          <option value="player">Jugador</option>
           <option value="admin">Admin</option>  
         </select>
-        <button type="submit" className="auth-button">Register</button>
+        <button type="submit" className="auth-button">Registrarse</button>
       </form>
     </div>
   )
