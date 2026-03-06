@@ -8,7 +8,6 @@ import { createEventService,
     getNotUserEventsService 
 } from "../models/eventModel.js";
 
-//Standard response function
 const handleResponse = (res, status, message, data = null) => {
     res.status(status).json({
         status,

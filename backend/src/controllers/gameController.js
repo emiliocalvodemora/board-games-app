@@ -1,6 +1,5 @@
 import { createGameService, deleteGameService, getAllGamesService, getGameByIdService, updateGameService } from "../models/gameModel.js";
 
-//Standard response function
 const handleResponse = (res, status, message, data = null) => {
     res.status(status).json({
         status,

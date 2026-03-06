@@ -13,16 +13,6 @@ export const createUser = async (req, res, next) => {
     const { name, email, password, role } = req.body;
     try {
         const password_hash = await argon2.hash(password, {type: argon2.argon2id});
-        
-        console.log(req.body);
-        console.log("name");
-        console.log(name);
-        console.log("email");
-        console.log(email);
-        console.log("password_hash");
-        console.log(password_hash);
-        console.log("role");
-        console.log(role);
         const newUser = await createUserService(name, email, password_hash, role);
         handleResponse(res, 201, "Usuario creado con éxito", newUser);
     } catch (err) {

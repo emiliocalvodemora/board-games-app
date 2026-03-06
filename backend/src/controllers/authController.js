@@ -16,7 +16,7 @@ const cookieOptions = {
     secure: false,
     // secure: process.env.NODE_ENV === "production",
     sameSite: "strict",
-    maxAge: 7 * 24 * 60 * 60 * 1000 // 7 días
+    maxAge: 7 * 24 * 60 * 60 * 1000
 };
 
 export const register = async(req, res, next) => {
@@ -56,7 +56,6 @@ export const login = async(req, res, next) => {
 }
 
 export const me = async(req, res) => {
-    // res.cookie("token", req.cookies.token, cookieOptions);
     handleResponse(res, 200, "Perfil del usuario", req.user);
 }
 

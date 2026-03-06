@@ -7,23 +7,6 @@ CREATE TABLE users (
     role VARCHAR(50) NOT NULL CHECK (role IN ('admin', 'player')),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
--- -- Administradores
--- CREATE TABLE admins (
---     id SERIAL PRIMARY KEY,
---     email VARCHAR(320) NOT NULL,
---     password_hash VARCHAR(255) NOT NULL,
---     name VARCHAR(100) NOT NULL,
---     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
--- );
-
--- -- Jugadores
--- CREATE TABLE players (
---     id SERIAL PRIMARY KEY,
---     email VARCHAR(320) NOT NULL,
---     password_hash VARCHAR(255) NOT NULL,
---     name VARCHAR(100) NOT NULL,
---     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
--- );
 
 -- Juegos
 CREATE TABLE games (

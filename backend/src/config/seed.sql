@@ -11,7 +11,7 @@ RESTART IDENTITY CASCADE;
 
 
 -- =====================================
--- USERS
+-- USUARIOS
 -- password = 123456
 -- =====================================
 INSERT INTO users (email, password_hash, name, role) VALUES
@@ -49,7 +49,7 @@ INSERT INTO users (email, password_hash, name, role) VALUES
  'player');
 
 -- =====================================
--- GAMES
+-- JUEGOS
 -- =====================================
 INSERT INTO games (name, description, min_players, max_players) VALUES
 ('Catan', 'Juego de estrategia y comercio', 3, 4),
@@ -59,7 +59,7 @@ INSERT INTO games (name, description, min_players, max_players) VALUES
 
 
 -- =====================================
--- EVENTS
+-- EVENTOS
 -- =====================================
 INSERT INTO events (title, description, event_date, event_location, organizer_admin_id) VALUES
 ('Torneo Oficial Catan',
@@ -76,7 +76,7 @@ INSERT INTO events (title, description, event_date, event_location, organizer_ad
 
 
 -- =====================================
--- MATCHES
+-- PARTIDAS
 -- =====================================
 INSERT INTO matches (game_id, event_id, start_time, end_time) VALUES
 (1, 1, '2026-03-15 16:00:00', '2026-03-15 18:00:00'),
@@ -86,7 +86,7 @@ INSERT INTO matches (game_id, event_id, start_time, end_time) VALUES
 
 
 -- =====================================
--- EVENT PARTICIPATIONS
+-- PARTICIPACIONES EN EVENTOS
 -- =====================================
 INSERT INTO event_participations (event_id, player_id, ranking) VALUES
 (1, 1, 1),
@@ -97,7 +97,7 @@ INSERT INTO event_participations (event_id, player_id, ranking) VALUES
 
 
 -- =====================================
--- MATCH RESULTS
+-- RESULTADOS DE PARTIDAS
 -- =====================================
 INSERT INTO match_results (match_id, player_id, score) VALUES
 (1, 1, 10),

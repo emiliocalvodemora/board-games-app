@@ -16,7 +16,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "nodemon src/index.js",
-    "test": "jest --watchAll"
+    "test": "jest --detectOpenHandles"
   },
   "dependencies": {
     "argon2": "^0.44.0",

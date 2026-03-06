@@ -7,7 +7,6 @@ import { createMatchService,
     getNotUserMatchesService
 } from "../models/matchModel.js";
 
-//Standard response function
 const handleResponse = (res, status, message, data = null) => {
     res.status(status).json({
         status,
