@@ -1,0 +1,37 @@
+@import "tailwindcss";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+
+  .profile-container {
+    @apply min-h-[80vh] flex items-center justify-center p-4;
+  }
+
+  .profile-container-inner {
+    @apply bg-white p-8 rounded-lg shadow-md w-full max-w-lg text-center;
+  }
+
+  .profile-error {
+    @apply text-red-500 mb-4;
+  }
+
+  .profile-welcome {
+    @apply text-2xl font-bold mb-4 text-gray-800;
+  }
+
+  .profile-auth {
+    @apply flex flex-col gap-y-4;
+  }
+
+  .profile-login {
+    @apply bg-blue-500 text-white px-4 py-2 rounded-md mt-4 font-medium;
+  }
+
+  .profile-register {
+    @apply bg-gray-300 text-gray-800 px-4 py-2 rounded-md mt-4 font-medium;
+  } 
+
+}   

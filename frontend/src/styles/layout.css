@@ -1,0 +1,61 @@
+@import "tailwindcss";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+
+  .navbar {
+    @apply bg-gray-900 text-white w-full shadow-md;
+  }
+
+  .navbar-container {
+    @apply max-w-7xl mx-auto px-6 py-3 flex justify-between items-center;
+  }
+
+  .navbar-title {
+    @apply text-2xl font-bold hover:text-gray-300 transition;
+  }
+  
+  .navbar-user {
+    @apply flex items-center gap-2 hover:bg-gray-800 px-3 py-2 rounded transition;
+  }
+
+  .navbar-name {
+    @apply w-8 h-8 rounded-full bg-blue-500 flex items-center justify-center font-bold;
+  }
+
+  .navbar-hidename {
+    @apply hidden sm:block;
+  }
+
+  .navbar-dropdown {
+    @apply absolute right-0 mt-2 w-48 bg-white text-black rounded shadow-lg;
+  }
+
+  .navbar-dropdown-item {
+    @apply block w-full text-left px-4 py-2 hover:bg-gray-200;
+  }
+
+  .navbar-dropdown-logout {
+    @apply block w-full text-left px-4 py-2 hover:bg-red-100 text-red-600;
+  }
+
+  .navbar-login {
+    @apply mx-2 bg-blue-600 px-4 py-2 rounded hover:bg-blue-700 transition;
+  }
+
+  .navbar-register {
+    @apply mx-2 bg-white text-black px-4 py-2 rounded hover:bg-gray-200 transition;
+  }
+
+  .navbar-auth {
+    @apply flex gap-4;
+  }
+
+  .sidebar {
+    @apply w-80 h-screen bg-gray-100 p-4 overflow-y-auto border-l border-gray-300;
+  }
+
+}

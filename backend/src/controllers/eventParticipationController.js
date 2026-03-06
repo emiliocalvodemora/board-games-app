@@ -3,10 +3,10 @@ import {
     deleteEventParticipationService, 
     getAllEventParticipationsService, 
     getEventParticipationByIdService,
-    updateEventParticipationService 
+    updateEventParticipationService,
+    getEventParticipationByPlayerIdService
 } from "../models/eventParticipationModel.js";
 
-//Standard response function
 const handleResponse = (res, status, message, data = null) => {
     res.status(status).json({
         status,
@@ -29,6 +29,15 @@ export const getAllEventParticipations = async (req, res, next) => {
     try {
         const eventParticipations = await getAllEventParticipationsService();
         handleResponse(res, 200, "Participaciones en eventos obtenidas con éxito", eventParticipations);
+    } catch (err) {
+        next(err);
+    }
+};
+
+export const getEventParticipationByPlayerId = async (req, res, next) => {
+    try {
+        const eventParticipation = await getEventParticipationByPlayerIdService(req.params.playerId);
+        handleResponse(res, 200, "Participación en evento obtenida con éxito", eventParticipation);
     } catch (err) {
         next(err);
     }
@@ -60,7 +69,7 @@ export const updateEventParticipation = async (req, res, next) => {
 };
 
 export const deleteEventParticipation = async (req, res, next) => {
-    const { eventId, playerId} = req.body;
+    const { eventId, playerId} = req.params;
     try {
         const deletedEventParticipation = await deleteEventParticipationService(eventId, playerId);
         if (!deletedEventParticipation) {

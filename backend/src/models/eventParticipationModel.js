@@ -24,3 +24,8 @@ export const deleteEventParticipationService = async (eventId, playerId) => {
     const result = await pool.query("DELETE FROM event_participations WHERE event_id = $1 AND player_id = $2 RETURNING *", [eventId, playerId]);
     return result.rows[0];
 };  
+
+export const getEventParticipationByPlayerIdService = async (playerId) => {
+    const result = await pool.query("SELECT * FROM event_participations WHERE player_id = $1", [playerId]);
+    return result.rows;
+}

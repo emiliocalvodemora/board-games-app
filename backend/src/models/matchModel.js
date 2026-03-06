@@ -2,12 +2,12 @@ import pool from "../config/db.js";
 
 
 export const getAllMatchsService = async () => {
-    const result = await pool.query("SELECT * FROM matches");
+    const result = await pool.query("SELECT m.*, g.name as game_name, g.max_players FROM matches m JOIN games g ON m.game_id = g.id");
     return result.rows;
 };
 
 export const getMatchByIdService = async (id) => {
-    const result = await pool.query("SELECT * FROM matches WHERE id = $1", [id]);
+    const result = await pool.query("SELECT m.*, g.name as game_name, g.max_players FROM matches m JOIN games g ON m.game_id = g.id WHERE m.id = $1", [id]);
     return result.rows[0];
 };
 
@@ -31,3 +31,26 @@ export const deleteMatchService = async (id) => {
     const result = await pool.query("DELETE FROM matches WHERE id = $1 RETURNING *", [id]);
     return result.rows[0];
 };  
+
+export const getUserMatchesService = async (userId) => {
+    const result = await pool.query(
+        `SELECT m.*, g.name as game_name, g.max_players FROM matches m
+        JOIN match_results mr ON m.id = mr.match_id
+        JOIN games g ON m.game_id = g.id
+        WHERE mr.player_id = $1`,
+        [userId]
+    );
+    return result.rows;
+};
+
+export const getNotUserMatchesService = async (userId) => {
+    const result = await pool.query(
+        `SELECT m.*, g.name as game_name, g.max_players FROM matches m
+        JOIN games g ON m.game_id = g.id
+        WHERE m.id NOT IN (
+            SELECT match_id FROM match_results WHERE player_id = $1
+        )`,
+        [userId]
+    );
+    return result.rows;
+};

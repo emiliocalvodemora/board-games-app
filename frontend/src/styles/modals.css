@@ -1,0 +1,32 @@
+@import "tailwindcss";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .modal-overlay {
+    @apply fixed inset-0 bg-black/30 flex justify-center items-center z-50;
+  }
+
+  .modal-container {
+    @apply bg-white rounded-xl p-6 w-96 shadow-xl relative;
+  }
+  
+  .modal-title {
+    @apply text-xl font-bold mb-4;
+  }
+
+  .modal-form {
+    @apply flex flex-col gap-3;
+  }
+
+  .modal-form-text {
+    @apply border p-2 rounded bg-gray-100;
+  }
+
+  .modal-form-button-container {
+    @apply flex justify-between mt-4;
+  }
+
+}

@@ -1,7 +1,7 @@
 import { createAdminService, deleteAdminService, getAllAdminsService, getAdminByIdService, updateAdminService } from "../models/adminModel.js";
 import argon2 from "argon2";
 
-//Standard response function
+
 const handleResponse = (res, status, message, data = null) => {
     res.status(status).json({
         status,

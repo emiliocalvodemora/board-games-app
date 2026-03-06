@@ -32,6 +32,48 @@ export const validatePlayer = (req, res, next) => {
     next();
 };
 
+const userRegisterScheme = Joi.object({
+    name: Joi.string().min(3).required(),
+    email: Joi.string().email().required(),
+    password: Joi.string().min(6).required(),
+    role: Joi.string().valid("admin", "player").required()
+});
+
+export const validateUserRegister = (req, res, next) => {
+    const { error } = userRegisterScheme.validate(req.body);
+    if (error) {
+        return res.status(400).json({ 
+            status: 400,
+            message: error.details[0].message });
+    }
+    next();
+};
+export const validateUser = (req, res, next) => {
+    const { error } = userRegisterScheme.validate(req.body);
+    if (error) {
+        return res.status(400).json({ 
+            status: 400,
+            message: error.details[0].message });
+    }
+    next();
+};
+
+const userLoginScheme = Joi.object({
+    name: Joi.string().min(3).required(),
+    password: Joi.string().min(6).required()
+});
+
+export const validateUserLogin = (req, res, next) => {
+    const { error } = userLoginScheme.validate(req.body);
+    if (error) {
+        return res.status(400).json({ 
+            status: 400,
+            message: error.details[0].message });
+    }
+    next();
+};
+
+
 const eventScheme = Joi.object({
     title: Joi.string().min(3).required(),
     description: Joi.string().min(3).required(),
@@ -69,7 +111,7 @@ export const validateGame = (req, res, next) => {
 
 const matchScheme = Joi.object({ 
     gameId: Joi.number().integer().required(),
-    eventId: Joi.number().integer().required(),
+    eventId: Joi.number().integer().allow(null),
     startTime: Joi.date().required(),
     endTime: Joi.date().required()
 }); 

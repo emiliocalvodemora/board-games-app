@@ -6,49 +6,50 @@ TRUNCATE match_results,
          matches,
          events,
          games,
-         players,
-         admins
+         users
 RESTART IDENTITY CASCADE;
 
 
 -- =====================================
--- ADMINS
+-- USUARIOS
 -- password = 123456
 -- =====================================
-INSERT INTO admins (email, password_hash, name) VALUES
+INSERT INTO users (email, password_hash, name, role) VALUES
+
+-- ADMINS
 ('admin1@boardgames.com',
- '$argon2id$v=19$m=65536,t=3,p=1$uW1xQW5kU2VlZEZvclRGRw$H6sJz7v1lXw5H8qW0xN5y0zZ4y3p8VQkM3x1pZ8KxY0',
- 'Admin One'),
+ '$argon2id$v=19$m=65536,t=3,p=4$uW1xQW5kU2VlZEZvclRGRw$H6sJz7v1lXw5H8qW0xN5y0zZ4y3p8VQkM3x1pZ8KxY0',
+ 'Admin One',
+ 'admin'),
 
 ('admin2@boardgames.com',
  '$argon2id$v=19$m=65536,t=3,p=1$uW1xQW5kU2VlZEZvclRGRw$H6sJz7v1lXw5H8qW0xN5y0zZ4y3p8VQkM3x1pZ8KxY0',
- 'Admin Two');
+ 'Admin Two',
+ 'admin'),
 
-
--- =====================================
 -- PLAYERS
--- password = 123456
--- =====================================
-INSERT INTO players (email, password_hash, name) VALUES
 ('alice@test.com',
  '$argon2id$v=19$m=65536,t=3,p=1$uW1xQW5kU2VlZEZvclRGRw$H6sJz7v1lXw5H8qW0xN5y0zZ4y3p8VQkM3x1pZ8KxY0',
- 'Alice'),
+ 'Alice',
+ 'player'),
 
 ('bob@test.com',
  '$argon2id$v=19$m=65536,t=3,p=1$uW1xQW5kU2VlZEZvclRGRw$H6sJz7v1lXw5H8qW0xN5y0zZ4y3p8VQkM3x1pZ8KxY0',
- 'Bob'),
+ 'Bob',
+ 'player'),
 
 ('charlie@test.com',
  '$argon2id$v=19$m=65536,t=3,p=1$uW1xQW5kU2VlZEZvclRGRw$H6sJz7v1lXw5H8qW0xN5y0zZ4y3p8VQkM3x1pZ8KxY0',
- 'Charlie'),
+ 'Charlie',
+ 'player'),
 
 ('diana@test.com',
  '$argon2id$v=19$m=65536,t=3,p=1$uW1xQW5kU2VlZEZvclRGRw$H6sJz7v1lXw5H8qW0xN5y0zZ4y3p8VQkM3x1pZ8KxY0',
- 'Diana');
-
+ 'Diana',
+ 'player');
 
 -- =====================================
--- GAMES
+-- JUEGOS
 -- =====================================
 INSERT INTO games (name, description, min_players, max_players) VALUES
 ('Catan', 'Juego de estrategia y comercio', 3, 4),
@@ -58,7 +59,7 @@ INSERT INTO games (name, description, min_players, max_players) VALUES
 
 
 -- =====================================
--- EVENTS
+-- EVENTOS
 -- =====================================
 INSERT INTO events (title, description, event_date, event_location, organizer_admin_id) VALUES
 ('Torneo Oficial Catan',
@@ -75,7 +76,7 @@ INSERT INTO events (title, description, event_date, event_location, organizer_ad
 
 
 -- =====================================
--- MATCHES
+-- PARTIDAS
 -- =====================================
 INSERT INTO matches (game_id, event_id, start_time, end_time) VALUES
 (1, 1, '2026-03-15 16:00:00', '2026-03-15 18:00:00'),
@@ -85,7 +86,7 @@ INSERT INTO matches (game_id, event_id, start_time, end_time) VALUES
 
 
 -- =====================================
--- EVENT PARTICIPATIONS
+-- PARTICIPACIONES EN EVENTOS
 -- =====================================
 INSERT INTO event_participations (event_id, player_id, ranking) VALUES
 (1, 1, 1),
@@ -96,7 +97,7 @@ INSERT INTO event_participations (event_id, player_id, ranking) VALUES
 
 
 -- =====================================
--- MATCH RESULTS
+-- RESULTADOS DE PARTIDAS
 -- =====================================
 INSERT INTO match_results (match_id, player_id, score) VALUES
 (1, 1, 10),
@@ -108,4 +109,7 @@ INSERT INTO match_results (match_id, player_id, score) VALUES
 (2, 3, 9),
 
 (3, 2, 15),
-(3, 4, 12);
+(3, 4, 12),
+
+(4, 2, 15),
+(4, 3, 12);

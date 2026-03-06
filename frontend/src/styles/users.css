@@ -1,0 +1,23 @@
+@import "tailwindcss";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .users-container {
+    @apply flex flex-col md:flex-row min-h-[80vh] gap-6;
+  }
+
+  .users-box {
+    @apply flex-1 bg-white p-8 rounded-lg shadow-md text-center;
+  }
+
+  .users-welcome {
+    @apply text-2xl font-bold mb-4 text-gray-800;
+  }
+
+  .users-message {
+    @apply mt-4 text-gray-600;
+  }
+}

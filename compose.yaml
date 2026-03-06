@@ -50,19 +50,24 @@ services:
       interval: 5s
       timeout: 5s
       retries: 5
-  # frontend:
-  #   build:
-  #     context: frontend
-  #     target: development
-  #   ports:
-  #     - 3000:3000
-  #   volumes:
-  #     - ./frontend/src:/code/src
-  #     - /code/node_modules
-  #   networks:
-  #     - public
-  #   depends_on:
-  #     - server
+  frontend:
+    build:
+      context: frontend
+      # target: development
+    ports:
+      # - 3000:3000
+      - 5173:5173
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+    volumes:
+      # - ./frontend/src:/code/src
+      - ./frontend:/frontend
+      # - /code/node_modules
+      - /frontend/node_modules
+    networks:
+      - public
+    depends_on:
+     - backend
 networks:
   public:
   private:
