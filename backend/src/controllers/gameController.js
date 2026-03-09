@@ -1,4 +1,9 @@
-import { createGameService, deleteGameService, getAllGamesService, getGameByIdService, updateGameService } from "../models/gameModel.js";
+import { createGameService, 
+    deleteGameService, 
+    getAllGamesService, 
+    getGameByIdService, 
+    updateGameService 
+} from "../models/gameModel.js";
 
 const handleResponse = (res, status, message, data = null) => {
     res.status(status).json({

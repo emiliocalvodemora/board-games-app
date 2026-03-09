@@ -1,6 +1,6 @@
 import express from "express"
 import { createUser, deleteUser, getAllUsers, getUserById, getUserByName, updateUser, getUser } from "../controllers/userController.js";
-import { validateUser } from "../middlewares/inputValidator.js";
+import { validateUser, validateUserUpdate } from "../middlewares/inputValidator.js";
 import { verifyToken } from "../middlewares/authMiddleware.js";
 import { authorizeRoles } from "../middlewares/roleMiddleware.js";
 
@@ -12,7 +12,7 @@ router.get("/users", getAllUsers);
 router.get ("/user/id/:id", getUserById);
 router.get ("/user/name/:name", getUserByName);
 router.get("/user", getUser);
-router.put ("/user/:id", validateUser, updateUser);
+router.put ("/user/:id", validateUserUpdate, updateUser);
 router.delete ("/user/:id", validateUser, deleteUser);
 
 router.get("/protected", verifyToken, authorizeRoles(["admin"]), (req, res) => {

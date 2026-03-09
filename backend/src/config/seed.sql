@@ -19,28 +19,28 @@ INSERT INTO users (email, password_hash, name, role) VALUES
 -- ADMINS
 ('admin1@boardgames.com',
  '$argon2id$v=19$m=65536,t=3,p=4$uW1xQW5kU2VlZEZvclRGRw$H6sJz7v1lXw5H8qW0xN5y0zZ4y3p8VQkM3x1pZ8KxY0',
- 'Admin One',
+ 'Administrador Uno',
  'admin'),
 
 ('admin2@boardgames.com',
  '$argon2id$v=19$m=65536,t=3,p=1$uW1xQW5kU2VlZEZvclRGRw$H6sJz7v1lXw5H8qW0xN5y0zZ4y3p8VQkM3x1pZ8KxY0',
- 'Admin Two',
+ 'Administrador Dos',
  'admin'),
 
 -- PLAYERS
-('alice@test.com',
+('alicia@test.com',
  '$argon2id$v=19$m=65536,t=3,p=1$uW1xQW5kU2VlZEZvclRGRw$H6sJz7v1lXw5H8qW0xN5y0zZ4y3p8VQkM3x1pZ8KxY0',
- 'Alice',
+ 'Alicia',
  'player'),
 
-('bob@test.com',
+('juan@test.com',
  '$argon2id$v=19$m=65536,t=3,p=1$uW1xQW5kU2VlZEZvclRGRw$H6sJz7v1lXw5H8qW0xN5y0zZ4y3p8VQkM3x1pZ8KxY0',
- 'Bob',
+ 'Juan',
  'player'),
 
-('charlie@test.com',
+('pepe@test.com',
  '$argon2id$v=19$m=65536,t=3,p=1$uW1xQW5kU2VlZEZvclRGRw$H6sJz7v1lXw5H8qW0xN5y0zZ4y3p8VQkM3x1pZ8KxY0',
- 'Charlie',
+ 'pepe',
  'player'),
 
 ('diana@test.com',
@@ -65,13 +65,13 @@ INSERT INTO events (title, description, event_date, event_location, organizer_ad
 ('Torneo Oficial Catan',
  'Competición oficial con ranking',
  '2026-03-15 16:00:00',
- 'Madrid',
+ 'Córdoba',
  1),
 
 ('Noche Casual de Juegos',
  'Evento social abierto',
  '2026-03-20 18:00:00',
- 'Barcelona',
+ 'La Rioja',
  2);
 
 

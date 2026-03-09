@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
+import React from "react";
 
 // Componente que muestra la información de una partida, incluyendo el juego, los jugadores y la puntuación del usuario
 export default function Match({ match, onClick, isJoinable }) {
@@ -63,8 +64,8 @@ export default function Match({ match, onClick, isJoinable }) {
       <p className="text-gray-600 mb-2 flex-grow">{match.game_name || 'Cargando juego...'}</p>
       <p className="text-gray-600 mb-2 flex-grow">Jugadores: {players.map(player => player.name).join(', ')}</p>
       <p className="text-gray-600 mb-2 flex-grow">Tu puntuación: {score !== null ? score : 'Cargando puntuación...'}</p>
-      <p className="text-gray-600 mb-2 flex-grow">Hora de inicio: {new Date(match.start_time).toLocaleString()}</p>
-      <p className="text-gray-600 mb-2 flex-grow">Hora de fin: {new Date(match.end_time).toLocaleString()}</p>
+      <p className="text-gray-600 mb-2 flex-grow">Hora de inicio: {new Date(match.start_time).toLocaleString("es-ES")}</p>
+      <p className="text-gray-600 mb-2 flex-grow">Hora de fin: {new Date(match.end_time).toLocaleString("es-ES")}</p>
     </button>
   );
 }

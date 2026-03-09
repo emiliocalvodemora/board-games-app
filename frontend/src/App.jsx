@@ -44,7 +44,7 @@ function App() {
         <Route path="/" element={<Home error={error} user={user}/>} />
         <Route path="/register" element={user ? <Navigate to="/" /> : <Register setUser={setUser}/>} />
         <Route path="/login" element={user ? <Navigate to="/" /> : <Login setUser={setUser} />} />
-        <Route path="/profile" element={<Profile user={user} error={error} />} />
+        <Route path="/profile" element={<Profile user={user} setUser={setUser} error={error} setError={setError}/>} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </Router>
