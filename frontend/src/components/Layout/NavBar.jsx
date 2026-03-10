@@ -68,7 +68,7 @@ const NavBar = ({ user, setUser }) => {
                     }}
                     className="navbar-dropdown-item"
                   >
-                    Profile
+                    Ver perfil
                   </button>
 
                   <hr />
@@ -76,7 +76,7 @@ const NavBar = ({ user, setUser }) => {
                     onClick={handleLogout}
                     className="navbar-dropdown-logout"
                   >
-                    Logout
+                    Cerrar sesión
                   </button>
                 </div>
               )}
@@ -86,8 +86,8 @@ const NavBar = ({ user, setUser }) => {
           ) : (
 
             <div className="navbar-auth">
-              <Link to="/login" className="navbar-login">Login</Link>
-              <Link to="/register" className="navbar-register">Register</Link>
+              <Link to="/login" className="navbar-login">Iniciar sesión</Link>
+              <Link to="/register" className="navbar-register">Registrarse</Link>
             </div>
           )}
         </div>
